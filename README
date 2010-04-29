@@ -1,1 +1,7 @@
 This Python script demonstrates numerical approximation of a definite integral using Python with the Parallel Python module available at http://www.parallelpython.com.
+
+Example usage:
+
+$ time python parquad.py --expression "x**2" --lower 0 --upper 5 --panels 100000 --cpus 1
+$ time python parquad.py --expression "x**2" --lower 0 --upper 5 --panels 100000 --cpus 2
+$ time python parquad.py --expression "x**2" --lower 0 --upper 5 --panels 100000 145.678.1.1 145.678.1.2 145.678.1.3
