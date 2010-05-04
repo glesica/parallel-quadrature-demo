@@ -41,6 +41,7 @@ expression = None
 bounds = {}
 panels = None
 servers = tuple(args)
+multiplier = 1 # To become a command line argument
 
 for o, a in opts:
     if o == '--help':
@@ -105,11 +106,15 @@ if cpus:
 else:
     job_server = pp.Server(ppservers=servers)
 
-cpus = job_server.get_ncpus()
-#sys.stderr.write('Using %i workers.\n' % cpus)
+# Figure out total CPUs
+total_cpus = 0
+for n, c in job_server.get_active_nodes().items():
+    total_cpus += c
+
+print job_server.get_active_nodes()
 
 # Start jobs based on the number of cpus available
-parts = cpus
+parts = total_cpus * multiplier
 # Adjust panels to make things even
 panels = (panels / parts) * parts
 h = (bounds['--upper'] - bounds['--lower']) / parts
